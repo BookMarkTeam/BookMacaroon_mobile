@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:global_configuration/global_configuration.dart';
 
-void main() {
+void main() async {
+  // async main 인경우에 이 코드가 맨 처음줄로 있어야함
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await GlobalConfiguration().loadFromPath("resources/app_settings");
+  //await Firebase.initializeApp();
   runApp(MyApp());
 }
 
