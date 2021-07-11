@@ -5,12 +5,6 @@ import 'package:provider/provider.dart';
 import '../../models/login_model.dart';
 
 class SignGoogleWidget extends StatefulWidget {
-  final Function loginSuccessFunc;
-
-  SignGoogleWidget({
-    @required this.loginSuccessFunc,
-  });
-
   @override
   _SignGoogleWidgetState createState() => _SignGoogleWidgetState();
 }
@@ -32,10 +26,22 @@ class _SignGoogleWidgetState extends State<SignGoogleWidget> {
         textColor: Colors.black,
         icon: FaIcon(FontAwesomeIcons.google, color: Colors.red),
         onPressed: () {
-          final provider = Provider.of<LoginModel>(context, listen: false);
-          provider.login(widget.loginSuccessFunc);
+          callGoogleLogin();
         },
       ),
     );
+  }
+
+  void callGoogleLogin() async {
+    final provider = Provider.of<LoginModel>(context, listen: false);
+    await provider.googleLogin();
+
+    switch (provider.loginRequestCode) {
+      case LoginRequestCode.success:
+        provider.homeScreenChange(context);
+        break;
+      case LoginRequestCode.failed:
+        break;
+    }
   }
 }

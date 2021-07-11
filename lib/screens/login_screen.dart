@@ -37,24 +37,12 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             Spacer(),
-            SignGoogleWidget(
-              loginSuccessFunc: changeHomeScreen,
-            ),
+            SignGoogleWidget(),
             SizedBox(
               height: 50,
             )
           ],
         ),
-      ),
-    );
-  }
-
-  void changeHomeScreen() {
-    print('로그인 성공 이후 홈스크린 출력');
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => HomeScreen(),
-        settings: RouteSettings(name: '/home'),
       ),
     );
   }

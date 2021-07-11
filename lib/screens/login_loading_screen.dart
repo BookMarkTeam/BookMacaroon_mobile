@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../models/login_model.dart';
 
 import '../screens/login_screen.dart';
+import '../screens/home_screen.dart';
 
 class LoginLoadingScreen extends StatefulWidget {
   @override
@@ -32,7 +33,12 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
 
     String loginStatusMessage = '';
 
-    if (loginModel.isLoading) loginStatusMessage = '로그인 중입니다...';
+    if (loginModel.isLoading)
+      loginStatusMessage = '로그인 중입니다...';
+    else {
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => loginResultTask(loginModel));
+    }
 
     print('loading lottie start');
     return Scaffold(
@@ -68,8 +74,6 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
     await loginModel.getLoginData();
 
     if (loginModel.loginData.autoLogin) {
-      print('loginModel.loginData.autoLogin : ' +
-          loginModel.loginData.autoLogin.toString());
       await loginModel.requestLogin();
       loginResultTask(loginModel);
     } else
@@ -78,7 +82,15 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
 
   void loginResultTask(LoginModel loginModel) {
     // login 결과값. 인증 성공일때에는 home 아니면 loginScreen으로 변경
-    changeLoginScreen();
+    switch (loginModel.loginRequestCode) {
+      case LoginRequestCode.success:
+        loginModel.homeScreenChange(
+          context,
+        );
+        break;
+      case LoginRequestCode.failed:
+        changeLoginScreen();
+    }
   }
 
   void changeLoginScreen() {
