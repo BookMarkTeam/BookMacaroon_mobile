@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "810063032863",
+    "project_id": "book-macaroon",
+    "storage_bucket": "book-macaroon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810063032863:android:cb28bc0fa63fdf273f1b2a",
+        "android_client_info": {
+          "package_name": "com.example.bookmacaroon_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "810063032863-qi50u2n71gkjlffb8psr6u3sfg50cra6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bookmacaroon_mobile",
+            "certificate_hash": "16d7300085c96a83536a753b06b9edfb5649e4d3"
+          }
+        },
+        {
+          "client_id": "810063032863-i3ke1j26d5gv6ughu3tdvh2kauaovptt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm4wS7VPIOqmyaIWO5N7EZExTWT5QdzRs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "810063032863-i3ke1j26d5gv6ughu3tdvh2kauaovptt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

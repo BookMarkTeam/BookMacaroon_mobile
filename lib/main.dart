@@ -1,6 +1,8 @@
+import 'package:bookmacaroon_mobile/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 // Provider Model Import Dart
 import 'models/login_model.dart';
@@ -12,7 +14,7 @@ void main() async {
 
   await GlobalConfiguration()
       .loadFromPath("resources/config/app_settings.json");
-  //await Firebase.initializeApp();
+  await Firebase.initializeApp();
 
   print('main app start');
   runApp(MyApp());
@@ -30,6 +32,10 @@ class _MyAppState extends State<MyApp> {
       create: (context) => LoginModel(),
       child: MaterialApp(
         title: 'Bookmacaroon',
+        initialRoute: '/',
+        routes: {
+          '/login': (context) => LoginScreen(),
+        },
         debugShowCheckedModeBanner: true,
         home: LoginLoadingScreen(),
       ),

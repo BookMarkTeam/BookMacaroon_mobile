@@ -5,15 +5,31 @@ import 'package:provider/provider.dart';
 
 import '../models/login_model.dart';
 
+import '../screens/login_screen.dart';
+
 class LoginLoadingScreen extends StatefulWidget {
   @override
   _LoginLoadingScreenState createState() => _LoginLoadingScreenState();
 }
 
 class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
+  bool initialize = false;
+  @override
+  void initState() {
+    initialize = true;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var loginModel = Provider.of<LoginModel>(context);
+
+    if (initialize) {
+      initialize = false;
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => _updateLoginData(loginModel));
+    }
+
     String loginStatusMessage = '';
 
     if (loginModel.isLoading) loginStatusMessage = '로그인 중입니다...';
@@ -39,6 +55,38 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
           ),
         ],
       )),
+    );
+  }
+
+  void _updateLoginData(LoginModel loginModel) {
+    //로딩화면이 빌드되기 전에 호출되는것을 방지
+    //모델이 비동기수행될때는 필요함
+    getLoginDataTask(loginModel);
+  }
+
+  Future getLoginDataTask(LoginModel loginModel) async {
+    await loginModel.getLoginData();
+
+    if (loginModel.loginData.autoLogin) {
+      print('loginModel.loginData.autoLogin : ' +
+          loginModel.loginData.autoLogin.toString());
+      await loginModel.requestLogin();
+      loginResultTask(loginModel);
+    } else
+      changeLoginScreen();
+  }
+
+  void loginResultTask(LoginModel loginModel) {
+    // login 결과값. 인증 성공일때에는 home 아니면 loginScreen으로 변경
+    changeLoginScreen();
+  }
+
+  void changeLoginScreen() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => LoginScreen(),
+        settings: RouteSettings(name: '/login'),
+      ),
     );
   }
 }
