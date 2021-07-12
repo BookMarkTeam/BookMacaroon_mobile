@@ -75,7 +75,7 @@ class LoginModel extends ChangeNotifier {
     // login 요청
     switch (this.loginData.snsType) {
       case SnsTypeEnum.google:
-        googleLogin();
+        await googleLogin();
         break;
       case SnsTypeEnum.apple:
       case SnsTypeEnum.kakao:
@@ -106,7 +106,7 @@ class LoginModel extends ChangeNotifier {
         this.loginData.snsType = SnsTypeEnum.google;
         this.loginData.id = auth.currentUser.email;
         this.loginRequestCode = LoginRequestCode.success;
-        saveLoginData(loginData);
+        await saveLoginData(loginData);
       }
     }
     this.isLoading = false;

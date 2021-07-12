@@ -27,18 +27,12 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
 
     if (initialize) {
       initialize = false;
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) => _updateLoginData(loginModel));
+      getLoginDataTask(loginModel);
     }
 
     String loginStatusMessage = '';
 
-    if (loginModel.isLoading)
-      loginStatusMessage = '로그인 중입니다...';
-    else {
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) => loginResultTask(loginModel));
-    }
+    if (loginModel.isLoading) loginStatusMessage = '로그인 중입니다...';
 
     print('loading lottie start');
     return Scaffold(
@@ -49,7 +43,7 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
         children: <Widget>[
           Spacer(),
           Lottie.asset(
-            'resources/lottie/67630-consultoria-telematica.json',
+            'resources/lottie/46472-lurking-cat.json',
             animate: true,
             height: 300,
             width: 300,
@@ -62,12 +56,6 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
         ],
       )),
     );
-  }
-
-  void _updateLoginData(LoginModel loginModel) {
-    //로딩화면이 빌드되기 전에 호출되는것을 방지
-    //모델이 비동기수행될때는 필요함
-    getLoginDataTask(loginModel);
   }
 
   Future getLoginDataTask(LoginModel loginModel) async {
@@ -90,6 +78,7 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
         break;
       case LoginRequestCode.failed:
         changeLoginScreen();
+        break;
     }
   }
 
