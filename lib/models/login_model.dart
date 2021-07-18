@@ -116,6 +116,8 @@ class LoginModel extends ChangeNotifier {
   void logout(Function callback) async {
     await googleSignIn.disconnect();
     FirebaseAuth.instance.signOut();
+    globalData.prefs.setBool(Consts.autoLogin, false);
+    callback();
   }
 
   Future saveLoginData(LoginData loginData) async {

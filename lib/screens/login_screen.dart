@@ -8,6 +8,7 @@ import '../datas/login_data.dart';
 import '../models/login_model.dart';
 
 import '../widgets/sign/sign_google_widget.dart';
+import '../widgets/sign/sign_apple_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   final LoginData loginData;
@@ -38,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Spacer(),
             SignGoogleWidget(),
+            SignAppleWidget(),
             SizedBox(
               height: 50,
             )

@@ -4,17 +4,17 @@ import 'package:provider/provider.dart';
 
 import '../../models/login_model.dart';
 
-class SignGoogleWidget extends StatefulWidget {
+class SignAppleWidget extends StatefulWidget {
   @override
-  _SignGoogleWidgetState createState() => _SignGoogleWidgetState();
+  _SignAppleWidgetState createState() => _SignAppleWidgetState();
 }
 
-class _SignGoogleWidgetState extends State<SignGoogleWidget> {
+class _SignAppleWidgetState extends State<SignAppleWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.black,
         borderRadius: BorderRadius.circular(6.0),
       ),
       margin: EdgeInsets.symmetric(horizontal: 7, vertical: 7),
@@ -26,15 +26,15 @@ class _SignGoogleWidgetState extends State<SignGoogleWidget> {
             Container(
               width: 30,
               child: FaIcon(
-                FontAwesomeIcons.google,
-                color: Colors.red,
+                FontAwesomeIcons.apple,
+                color: Colors.white,
                 size: 24,
               ),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(14, 0, 14, 0),
               child: Text(
-                'Sign In With Google',
+                'Sign In With Apple',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),
@@ -49,24 +49,13 @@ class _SignGoogleWidgetState extends State<SignGoogleWidget> {
           width: 0.2,
           color: Colors.black,
         ),
-        textColor: Colors.black,
+        textColor: Colors.white,
         onPressed: () {
-          callGoogleLogin();
+          callAppleLogin();
         },
       ),
     );
   }
 
-  void callGoogleLogin() async {
-    final provider = Provider.of<LoginModel>(context, listen: false);
-    await provider.googleLogin();
-
-    switch (provider.loginRequestCode) {
-      case LoginRequestCode.success:
-        provider.homeScreenChange(context);
-        break;
-      case LoginRequestCode.failed:
-        break;
-    }
-  }
+  void callAppleLogin() async {}
 }
