@@ -1,12 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 import '../datas/login_data.dart';
 import '../datas/global_data.dart';
 import '../datas/consts.dart';
+
+import '../models/home_model.dart';
 
 import '../screens/home_screen.dart';
 
@@ -138,8 +141,12 @@ class LoginModel extends ChangeNotifier {
     print('로그인 성공 이후 홈스크린 출력');
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => HomeScreen(),
-        settings: RouteSettings(name: '/home'),
+        // builder: (context) => HomeScreen(),
+        // settings: RouteSettings(name: '/home'),
+        builder: (context) => ChangeNotifierProvider(
+          create: (context) => HomeModel(),
+          child: HomeScreen(),
+        ),
       ),
     );
   }
