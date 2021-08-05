@@ -42,7 +42,7 @@ class _SearchCustomWidgetState extends State<SearchCustomWidget> {
                       Icons.cancel,
                       color: Colors.black,
                     ),
-                    splashRadius: 1.0,
+                    splashRadius: 1.0, // 버튼 클릭시 클릭 모션 화면번짐 크기
                     onPressed: () {
                       setState(() {
                         widget.textEditingController.clear();
