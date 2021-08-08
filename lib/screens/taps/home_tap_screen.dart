@@ -69,7 +69,7 @@ class _HomeTapScreenState extends State<HomeTapScreen> {
                             child: Text("목록"),
                             onPressed: () => {
                               if (!homeTapModel.listStyle)
-                                homeTapModel.changeListStyle()
+                                homeTapModel.changeListStyle(),
                             },
                           ),
                         )
@@ -82,9 +82,70 @@ class _HomeTapScreenState extends State<HomeTapScreen> {
                   splashRadius: 16.0, // 버튼 클릭시 클릭 모션 화면번짐 크기
                   onPressed: () => {},
                 ),
+                //directory 부터
+                // ListView.builder(
+                //   itemCount: homeTapModel.directoryElement.length,
+                //   itemBuilder: (context, index) {
+                //     // final item = homeTapModel.directoryElement.indexOf(index);
+                //     // print(item);
+                //     return ListTile(
+                //       leading: Icon(Icons.folder),
+                //       title: Text('hmm'),
+                //     );
+                //   },
+                // ),
               ],
             ),
-          )
+          ),
+          Expanded(
+            child: ListView.separated(
+              itemBuilder: (context, index) {
+                if (homeTapModel.path.length > 1) {
+                  if (index == 0) {
+                    //root 가 아닐때
+                    return FlatButton(
+                      child: ListTile(
+                        leading: Icon(Icons.folder),
+                        title: Text('...'),
+                      ),
+                      onPressed: () => {
+                        print('exit Folder'),
+                        homeTapModel.upperFolder(),
+                      },
+                    );
+                  }
+                  index--;
+                }
+                var element = homeTapModel.elements.elementAt(index);
+                if (homeTapModel.isFolderType(element['type'])) {
+                  return FlatButton(
+                    child: ListTile(
+                      leading: Icon(Icons.folder),
+                      title: Text(element['name']),
+                    ),
+                    onPressed: () => {
+                      print('click bookmark folder:' + element['name']),
+                      homeTapModel.enterFolder(element),
+                    },
+                  );
+                } else {
+                  return FlatButton(
+                    child: ListTile(
+                      leading: Icon(Icons.bookmark),
+                      title: Text(element['name']),
+                    ),
+                    onPressed: () => {},
+                  );
+                }
+              },
+              separatorBuilder: (context, index) {
+                return const Divider();
+              },
+              itemCount: homeTapModel.path.length > 1
+                  ? homeTapModel.elements.length + 1
+                  : homeTapModel.elements.length,
+            ),
+          ),
         ],
       ),
     );

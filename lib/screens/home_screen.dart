@@ -31,7 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
     switch (homeModel.homeBottomNavigators) {
       case HomeBottomNavigators.home:
         tapWidget = ChangeNotifierProvider<HomeTapModel>(
-          create: (context) => HomeTapModel(),
+          create: (context) =>
+              HomeTapModel(data: null), // 이곳에 로그인할때 가져온 데이터가 들어감
           child: HomeTapScreen(),
         );
         break;
